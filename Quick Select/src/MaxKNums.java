@@ -1,10 +1,11 @@
 //  Kyle Sung 016917041
-//  Lab 3 Part A
-//  Returns the kth smallest number in a n array of random numbers
+//  Lab 3 Part B
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 
-public class QuickSelect {
+public class MaxKNums {
     public static void main(String[] args) {
         Random rand = new Random();
         Scanner sc = new Scanner(System.in);
@@ -12,7 +13,7 @@ public class QuickSelect {
         ArrayList<Integer> arr = new ArrayList<>();
 
         System.out.println("Enter a number: ");
-        n =sc.nextInt();
+        n = sc.nextInt();
 
         for(int i = 0; i < n; i++){
             arr.add(rand.nextInt(100 + 100 + 1) - 100);
@@ -20,30 +21,33 @@ public class QuickSelect {
 
         System.out.println(arr + "\n");
 
-        System.out.println("Enter the kth least element to find between 1 and " + n + ": ");
+        System.out.println("Enter the K max elements to find between 1 and " + n + ": ");
         k = sc.nextInt();
         sc.close();
 
-        QuickSelect a = new QuickSelect();
+        MaxKNums a = new MaxKNums();
 
-//        a.partition(arr, 0, arr.size()-1);
-        int kthLeastElement = a.Quick_select(arr, 0, arr.size() - 1, k - 1);
-        System.out.println("The Kth least element is: " + kthLeastElement);
+        System.out.println("The top " + k + " numbers in the list are: \n"
+                + a.Quick_select(arr, 0, arr.size() - 1, k - 1));
     }
 
-    public int Quick_select(ArrayList<Integer> arr, int left, int right, int k){
-        QuickSelect b = new QuickSelect();
+    public ArrayList<Integer> Quick_select(ArrayList<Integer> arr, int left, int right, int k){
+        MaxKNums b = new MaxKNums();
         int pivotIndex = b.partition(arr, left, right);
-        if (k == pivotIndex){
-            return arr.get(pivotIndex);
+        int topK = arr.size() - k - 1;
+        if (topK == pivotIndex){
+            ArrayList<Integer> topKNums = new ArrayList<>();
+            for(int i = topK; i < arr.size(); i++){
+                topKNums.add(arr.get(i));
+            }
+            return topKNums;
         }
-        if (pivotIndex < k){
+        if (pivotIndex < topK){
             return Quick_select(arr, pivotIndex + 1, right, k);
         }
         else{
             return Quick_select(arr, left, pivotIndex - 1, k);
         }
-
     }
 
     private int partition(ArrayList<Integer> arr, int left, int right){
