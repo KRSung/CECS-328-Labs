@@ -26,7 +26,6 @@ public class QuickSelect {
 
         QuickSelect a = new QuickSelect();
 
-//        a.partition(arr, 0, arr.size()-1);
         int kthLeastElement = a.Quick_select(arr, 0, arr.size() - 1, k - 1);
         System.out.println("The Kth least element is: " + kthLeastElement);
     }
@@ -43,7 +42,6 @@ public class QuickSelect {
         else{
             return Quick_select(arr, left, pivotIndex - 1, k);
         }
-
     }
 
     private int partition(ArrayList<Integer> arr, int left, int right){
@@ -59,7 +57,7 @@ public class QuickSelect {
             if(arr.get(left) <= pivot){
                 left++;
             }
-            if (arr.get(right) >= pivot){
+            if (arr.get(right) >= pivot && right != left){
                 right--;
             }
             if(arr.get(left) >= pivot && arr.get(right) <= pivot){
@@ -72,7 +70,6 @@ public class QuickSelect {
         else{
             swap(arr, ++right, rightWall);
         }
-
         return right;
     }
 
